@@ -1,14 +1,14 @@
-import { Locator, Page } from "@playwright/test";
+import { Locator, Page } from '@playwright/test'
 
 export class NavBar {
-  readonly myAccount: Locator;
+    readonly myAccount: Locator
 
-  constructor(public readonly page: Page) {
-    this.page = page;
-    this.myAccount = page.locator('[data-test="sidenav-user-settings"]');
-  }
+    constructor(public readonly page: Page) {
+        this.page = page
+        this.myAccount = page.locator('[data-test="sidenav-user-settings"]')
+    }
 
-  async clickMyAccount() {
-    await this.myAccount.click();
-  }
+    async clickMyAccount() {
+        await this.myAccount.click()
+    }
 }

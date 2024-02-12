@@ -10,8 +10,8 @@ export class LoginPage {
 
     constructor(public readonly page: Page) {
         this.page = page
-        this.usernameFormField = page.locator('css=#username')
-        this.passwordFormField = page.locator('css=#password')
+        this.usernameFormField = page.getByLabel('Username')
+        this.passwordFormField = page.getByLabel('Password')
         this.signInButton = page.getByRole('button', { name: 'SIGN IN' })
         this.loginAlert = page.getByRole('alert')
     }

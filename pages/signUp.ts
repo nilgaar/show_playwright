@@ -1,5 +1,5 @@
 import { Locator, Page, expect } from '@playwright/test'
-import { urls } from '../data/constants'
+import { urls } from '../tools/constants'
 
 export class SignUpPage {
     readonly url = '/signup'
@@ -60,6 +60,7 @@ export class SignUpPage {
         await this.passwordErrorMessage.waitFor({ state: 'visible' })
         await expect(this.passwordErrorMessage).toBeVisible()
     }
+
     async expectPasswordMismatchError() {
         await this.confirmPasswordErrorMessage.waitFor({ state: 'visible' })
         await expect(this.confirmPasswordErrorMessage).toBeVisible()

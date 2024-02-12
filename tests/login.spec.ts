@@ -27,10 +27,7 @@ test.describe('Login Page', () => {
     })
 
     test('Try correct user', async ({ loginPage }) => {
-        await loginPage.fillLoginForm(
-            correctCredentials.username,
-            correctCredentials.password
-        )
+        await loginPage.fillLoginForm(correctCredentials)
         loginPage.expectOkResponse()
         await loginPage.submitLoginForm()
         loginPage.expectNoLoginFormFieldsVisible()

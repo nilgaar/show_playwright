@@ -4,6 +4,7 @@ import { defineConfig, devices } from '@playwright/test'
  * Read environment variables from file.
  * https://github.com/motdotla/dotenv
  */
+// eslint-disable-next-line @typescript-eslint/no-var-requires
 require('dotenv').config()
 
 /**
@@ -36,11 +37,16 @@ export default defineConfig({
 
     /* Configure projects for major browsers */
     projects: [
+        // {
+        //     name: 'chromium',
+        //     use: {
+        //         ...devices['Desktop Chrome'],
+        //     },
+        // },
+
         {
-            name: 'chromium',
-            use: {
-                ...devices['Desktop Chrome'],
-            },
+            name: 'firefox',
+            use: { ...devices['Desktop Firefox'] },
         },
 
         {

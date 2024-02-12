@@ -5,7 +5,7 @@ import { correctCredentials, wrongCredentials } from "../data/credentials";
 const test = base.extend<{ loginPage: LoginPage }>({
   loginPage: async ({ page }, use) => {
     const loginPage = new LoginPage(page);
-    loginPage.goTo();
+    await loginPage.goTo();
     await use(loginPage);
   },
 });

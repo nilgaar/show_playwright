@@ -17,20 +17,14 @@ test.describe('Login Page', () => {
     })
 
     test('Try wrong user', async ({ loginPage }) => {
-        await loginPage.fillLoginForm(
-            wrongCredentials.username,
-            wrongCredentials.password
-        )
+        await loginPage.fillLoginForm(wrongCredentials)
         loginPage.expectUnauthorizedReponse()
         await loginPage.submitLoginForm()
         loginPage.expectInvalidCredentialsAlert()
     })
 
     test('Try correct user', async ({ loginPage }) => {
-        await loginPage.fillLoginForm(
-            correctCredentials.username,
-            correctCredentials.password
-        )
+        await loginPage.fillLoginForm(correctCredentials)
         loginPage.expectOkResponse()
         await loginPage.submitLoginForm()
         loginPage.expectNoLoginFormFieldsVisible()

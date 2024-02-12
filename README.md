@@ -12,6 +12,6 @@ yarn start
 then run:
 
 ```
-npm start
-npx playwright test
+npm install
+npm run test
 ```

@@ -1,4 +1,5 @@
-import { Locator, Page, Response, expect } from '@playwright/test'
+import { Locator, Page, expect } from '@playwright/test'
+import { Credentials } from '../data/user'
 
 export class LoginPage {
     readonly usernameFormField: Locator
@@ -19,11 +20,11 @@ export class LoginPage {
         await this.page.goto('/')
     }
 
-    async fillLoginForm(username: string = '', password: string = '') {
+    async fillLoginForm(credentials?: Credentials) {
         await this.usernameFormField.clear()
-        await this.usernameFormField.fill(username)
+        await this.usernameFormField.fill(credentials?.username || '')
         await this.passwordFormField.clear()
-        await this.passwordFormField.fill(password)
+        await this.passwordFormField.fill(credentials?.password || '')
     }
 
     async submitLoginForm() {

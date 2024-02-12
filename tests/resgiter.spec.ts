@@ -26,13 +26,8 @@ test.describe('SignUp Page', () => {
     })
 
     test('Password Mismatch', async ({ signupPage }) => {
-        await signupPage.fillForm(
-            'John',
-            'Doe',
-            'john_doe' + Date.now(),
-            'password2',
-            'password3'
-        )
+        const user = User.createRandomUser()
+        await signupPage.fillForm(...user.toStringArray(), 'anotherPassword')
         await signupPage.expectPasswordMismatchError()
     })
 })

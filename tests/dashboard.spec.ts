@@ -8,10 +8,7 @@ test.describe('Dashboard Page', () => {
     test.beforeEach(async ({ page }) => {
         const loginPage = new LoginPage(page)
         await loginPage.goTo()
-        await loginPage.fillLoginForm(
-            correctCredentials.username,
-            correctCredentials.password
-        )
+        await loginPage.fillLoginForm(correctCredentials)
         await loginPage.submitLoginForm()
     })
 

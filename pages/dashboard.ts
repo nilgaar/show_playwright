@@ -1,4 +1,4 @@
-import { Locator, Page, expect } from '@playwright/test'
+import { Page } from '@playwright/test'
 import { NavBar } from '../components/navBar'
 
 export class DashboardPage {

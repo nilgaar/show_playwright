@@ -1,36 +1,38 @@
-import { test, expect } from "@playwright/test";
+import { test as base } from "@playwright/test";
 import { LoginPage } from "../pages/login";
 import { correctCredentials, wrongCredentials } from "../data/credentials";
 
-test("Empty Form field", async ({ page }) => {
-  await page.goto("/");
-
-  const loginPage: LoginPage = new LoginPage(page);
-  (await loginPage.fillLoginForm()).expectButtonDisabled();
+const test = base.extend<{ loginPage: LoginPage }>({
+  loginPage: async ({ page }, use) => {
+    const loginPage = new LoginPage(page);
+    loginPage.goTo();
+    await use(loginPage);
+  },
 });
 
-test("Try wrong user", async ({ page }) => {
-  await page.goto("/");
+test.describe("Login Page", () => {
+  test("Empty Form field", async ({ loginPage }) => {
+    await loginPage.fillLoginForm();
+    loginPage.expectButtonDisabled();
+  });
 
-  const loginPage: LoginPage = new LoginPage(page);
-  await loginPage.fillLoginForm(
-    wrongCredentials.username,
-    wrongCredentials.password
-  );
-  await loginPage.expectUnauthorizedReponse();
-  await loginPage.submitLoginForm();
-  loginPage.expectInvalidCredentialsAlert();
-});
+  test("Try wrong user", async ({ loginPage }) => {
+    await loginPage.fillLoginForm(
+      wrongCredentials.username,
+      wrongCredentials.password
+    );
+    loginPage.expectUnauthorizedReponse();
+    await loginPage.submitLoginForm();
+    loginPage.expectInvalidCredentialsAlert();
+  });
 
-test("Try correct user", async ({ page }) => {
-  await page.goto("/");
-
-  const loginPage: LoginPage = new LoginPage(page);
-  await loginPage.fillLoginForm(
-    correctCredentials.username,
-    correctCredentials.password
-  );
-  loginPage.expectOkResponse();
-  await loginPage.submitLoginForm();
-  loginPage.expectNoLoginFormFieldsVisible();
+  test("Try correct user", async ({ loginPage }) => {
+    await loginPage.fillLoginForm(
+      correctCredentials.username,
+      correctCredentials.password
+    );
+    loginPage.expectOkResponse();
+    await loginPage.submitLoginForm();
+    loginPage.expectNoLoginFormFieldsVisible();
+  });
 });

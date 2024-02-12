@@ -1,6 +1,6 @@
 import { expect, test } from "@playwright/test";
 import { LoginPage } from "../pages/login";
-import { correctCredentials, wrongCredentials } from "../data/credentials";
+import { correctCredentials } from "../data/credentials";
 import { DashboardPage } from "../pages/dashboard";
 import { MyAccount } from "../pages/myAccount";
 
@@ -10,7 +10,7 @@ test.describe("Dashboard Page", () => {
     await loginPage.goTo();
     await loginPage.fillLoginForm(
       correctCredentials.username,
-      correctCredentials.password
+      correctCredentials.password,
     );
     await loginPage.submitLoginForm();
   });

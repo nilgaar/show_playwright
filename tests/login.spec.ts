@@ -19,7 +19,7 @@ test.describe("Login Page", () => {
   test("Try wrong user", async ({ loginPage }) => {
     await loginPage.fillLoginForm(
       wrongCredentials.username,
-      wrongCredentials.password
+      wrongCredentials.password,
     );
     loginPage.expectUnauthorizedReponse();
     await loginPage.submitLoginForm();
@@ -29,7 +29,7 @@ test.describe("Login Page", () => {
   test("Try correct user", async ({ loginPage }) => {
     await loginPage.fillLoginForm(
       correctCredentials.username,
-      correctCredentials.password
+      correctCredentials.password,
     );
     loginPage.expectOkResponse();
     await loginPage.submitLoginForm();

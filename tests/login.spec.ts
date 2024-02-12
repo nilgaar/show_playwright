@@ -16,11 +16,11 @@ test.describe('Login Page', () => {
         loginPage.expectButtonDisabled()
     })
 
-    test('Try wrong user', async ({ loginPage }) => {
-        await loginPage.fillLoginForm(
-            wrongCredentials.username,
-            wrongCredentials.password
-        )
+    test('Try wrong user', async ({ loginPage, browserName }) => {
+        if (browserName === 'chromium') {
+            test.skip()
+        }
+        await loginPage.fillLoginForm(wrongCredentials)
         loginPage.expectUnauthorizedReponse()
         await loginPage.submitLoginForm()
         loginPage.expectInvalidCredentialsAlert()

@@ -8,6 +8,8 @@ export class SignUpPage {
     readonly passwordFormField: Locator
     readonly confirmPasswordFormField: Locator
     readonly signUpButton: Locator
+    readonly passwordErrorMessage: Locator
+    readonly confirmPasswordErrorMessage: Locator
     constructor(public readonly page: Page) {
         this.page = page
         this.firstNameFormField = page.locator('css=#firstName')
@@ -16,6 +18,10 @@ export class SignUpPage {
         this.passwordFormField = page.locator('css=#password')
         this.confirmPasswordFormField = page.locator('css=#confirmPassword')
         this.signUpButton = page.getByRole('button', { name: 'SIGN UP' })
+        this.passwordErrorMessage = page.locator('css=#password-helper-text')
+        this.confirmPasswordErrorMessage = page.locator(
+            'css=#confirmPassword-helper-text'
+        )
     }
 
     async goTo() {
@@ -47,5 +53,14 @@ export class SignUpPage {
 
     async expectRedirectToSignIn() {
         await this.page.waitForURL('/signin')
+    }
+
+    async expectPasswordMinLengthError() {
+        await this.passwordErrorMessage.waitFor({ state: 'visible' })
+        await expect(this.passwordErrorMessage).toBeVisible()
+    }
+    async expectPasswordMismatchError() {
+        await this.confirmPasswordErrorMessage.waitFor({ state: 'visible' })
+        await expect(this.confirmPasswordErrorMessage).toBeVisible()
     }
 }

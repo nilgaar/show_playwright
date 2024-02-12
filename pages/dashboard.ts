@@ -16,7 +16,7 @@ export class DashboardPage {
   private auth() {}
 
   async goTo() {
-    await this.page.goto("/");
+    await this.page.goto("localhost");
   }
 
   async expectDashboardTitle() {

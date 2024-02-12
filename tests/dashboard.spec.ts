@@ -5,17 +5,8 @@ import { compileFunction } from "vm";
 
 test.describe("Dashboard Page", () => {
   test("Check dashboard", async ({ page, context }) => {
-    context.addCookies([
-      {
-        name: "connect.sid",
-        value: "cookieValue",
-        httpOnly: true,
-        path: "/",
-        domain: "localhost",
-        sameSite: "None",
-        secure: false,
-      },
-    ]);
+    var cookieVals;
+
     await fetch("http://localhost:3001/login", {
       headers: {
         "Content-Type": "application/json",
@@ -33,23 +24,25 @@ test.describe("Dashboard Page", () => {
         cookie.indexOf(";")
       );
 
-      context.addCookies([
+      cookieVals = [
         {
-          name: "connect.sid",
+          name: cookieName,
           value: cookieValue,
           httpOnly: true,
           path: "/",
-          domain: "localhost",
+          domain: "localhost:3000",
           sameSite: "None",
           secure: false,
         },
-      ]);
-      console.log(await context.cookies());
+      ];
+      console.log(cookieVals);
     });
+    await context.addCookies(cookieVals);
     console.log(await context.cookies());
-    var dashPage: DashboardPage = new DashboardPage(page);
-    await dashPage.goTo();
-    await dashPage.expectDashboardTitle();
+
+    await page.goto("/");
     console.log(await context.cookies());
+
+    const dashboardPage = new DashboardPage(page);
   });
 });

@@ -1,48 +1,21 @@
 import { test } from "@playwright/test";
+import { LoginPage } from "../pages/login";
+import { correctCredentials, wrongCredentials } from "../data/credentials";
 import { DashboardPage } from "../pages/dashboard";
-import { correctCredentials } from "../data/credentials";
-import { compileFunction } from "vm";
 
 test.describe("Dashboard Page", () => {
-  test("Check dashboard", async ({ page, context }) => {
-    var cookieVals;
+  test.beforeEach(async ({ page }) => {
+    const loginPage = new LoginPage(page);
+    await loginPage.goTo();
+    await loginPage.fillLoginForm(
+      correctCredentials.username,
+      correctCredentials.password
+    );
+    await loginPage.submitLoginForm();
+  });
 
-    await fetch("http://localhost:3001/login", {
-      headers: {
-        "Content-Type": "application/json",
-      },
-      method: "POST",
-      body: JSON.stringify({
-        ...correctCredentials,
-        type: "LOGIN",
-      }),
-    }).then((res) => {
-      const cookie = res.headers.getSetCookie()[0];
-      const cookieName = cookie.substring(0, cookie.indexOf("="));
-      const cookieValue = cookie.substring(
-        cookie.indexOf("=") + 1,
-        cookie.indexOf(";")
-      );
-
-      cookieVals = [
-        {
-          name: cookieName,
-          value: cookieValue,
-          httpOnly: true,
-          path: "/",
-          domain: "localhost:3000",
-          sameSite: "None",
-          secure: false,
-        },
-      ];
-      console.log(cookieVals);
-    });
-    await context.addCookies(cookieVals);
-    console.log(await context.cookies());
-
-    await page.goto("/");
-    console.log(await context.cookies());
-
+  test("Check Account info", async ({ page }) => {
     const dashboardPage = new DashboardPage(page);
+    await dashboardPage.navBar.clickMyAccount();
   });
 });

@@ -11,9 +11,10 @@ yarn
 yarn start
 ```
 
-then run:
+in another terminal, run:
 
 ```sh
+echo "baseUrl= "http://localhost:3000"" >> .env
 npm install
 npm run test
 ```
@@ -135,3 +136,7 @@ test("Check dashboard", async ({ page, context }) => {
 ### One test, one user.
 
 Ideally, for each test execution, a brand new user shall be created, either through a API call or a Database query. This shall be a `setup`.
+
+### OOP improvements and overall.
+
+It is likely that some improvements can be made in terms of OOP.

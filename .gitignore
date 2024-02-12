@@ -133,3 +133,4 @@ dist
 /blob-report/
 /playwright/.cache/
 playwright/.auth/user.json
+cypress-realworld-app/

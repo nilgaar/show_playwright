@@ -1,4 +1,5 @@
 import { Locator, Page, expect } from '@playwright/test'
+import { urls } from '../data/constants'
 
 export class SignUpPage {
     readonly url = '/signup'
@@ -38,7 +39,7 @@ export class SignUpPage {
         await this.lastNameFormField.fill(lastName)
         await this.usernameFormField.fill(username)
         await this.passwordFormField.fill(password)
-        await this.confirmPasswordFormField.fill(confirmPassword)
+        await this.confirmPasswordFormField.fill(confirmPassword || password)
     }
 
     async submitForm() {
@@ -52,7 +53,7 @@ export class SignUpPage {
     }
 
     async expectRedirectToSignIn() {
-        await this.page.waitForURL('/signin')
+        await this.page.waitForURL(urls.signin)
     }
 
     async expectPasswordMinLengthError() {

@@ -12,9 +12,11 @@ test.describe('Dashboard Page', () => {
         await loginPage.submitLoginForm()
     })
 
-    test('Check Account info', async ({ page }) => {
+    test('Check Account info', async ({ page, browserName }) => {
         const dashboardPage = new DashboardPage(page)
-        await dashboardPage.navBar.clickMyAccount()
+        await dashboardPage.navBar.clickMyAccount(
+            browserName.includes('Mobile')
+        )
         const myAccount = new MyAccount(page)
         expect(await myAccount.getFirstName()).toBe('Edgar')
     })

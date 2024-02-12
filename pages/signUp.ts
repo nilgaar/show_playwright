@@ -39,7 +39,7 @@ export class SignUpPage {
         await this.lastNameFormField.fill(lastName)
         await this.usernameFormField.fill(username)
         await this.passwordFormField.fill(password)
-        await this.confirmPasswordFormField.fill(confirmPassword)
+        await this.confirmPasswordFormField.fill(confirmPassword || password)
     }
 
     async submitForm() {

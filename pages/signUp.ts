@@ -1,4 +1,5 @@
 import { Locator, Page, expect } from '@playwright/test'
+import { urls } from '../data/constants'
 
 export class SignUpPage {
     readonly url = '/signup'
@@ -52,7 +53,7 @@ export class SignUpPage {
     }
 
     async expectRedirectToSignIn() {
-        await this.page.waitForURL('/signin')
+        await this.page.waitForURL(urls.signin)
     }
 
     async expectPasswordMinLengthError() {
